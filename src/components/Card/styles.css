@@ -28,13 +28,11 @@
   
 .card-text {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 25px;
     padding-bottom: 25px;
-    font-size: 24px;
-    font-weight: bold;
     border-top: 1px solid #e2e2e2;
     border-bottom: 1px solid #e2e2e2;
 }

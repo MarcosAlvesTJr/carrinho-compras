@@ -11,8 +11,9 @@
 }
   
 .product-pic {
-    width: 90%;
+    width: 100%;
     height: 100%;
+    object-fit: contain;
 }
   
 .product-pic-container {
@@ -41,4 +42,14 @@
 .product-price {
     font-weight: 500;
 }
-  
+
+.product-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.product:last-child {
+    margin-bottom: 25px;
+}

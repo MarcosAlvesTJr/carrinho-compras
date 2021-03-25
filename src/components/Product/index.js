@@ -9,11 +9,20 @@ function Product({ image, name, sellingPrice, price }) {
             </div>
             <div className="product-info">
                 <p className="product-name">{name}</p>
-                <p className="product-selling-price">{`R$ ${sellingPrice}`}</p>
-                <p className="product-price">{`R$ ${price}`}</p>
+                <p className="product-selling-price">{sellingPrice}</p>
+                <p className="product-price">{price}</p>
             </div>
         </div>
     );
 }
 
-export default Product;
+function ProductTotal({ total }) {
+    return (
+        <div className="product-total">
+            <p>Total</p>
+            <p>{total}</p>
+        </div>
+    );
+}
+
+export { Product, ProductTotal };

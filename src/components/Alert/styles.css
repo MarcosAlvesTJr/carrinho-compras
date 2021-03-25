@@ -1,0 +1,12 @@
+.alert {
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    width: 75%;
+    background-color: #C7FFA6;
+    color: #217A00;
+    border: 1px solid #C7FFA6;
+    border-radius: 35px;
+}
