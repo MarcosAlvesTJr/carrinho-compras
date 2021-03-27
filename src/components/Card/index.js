@@ -3,7 +3,9 @@ import './styles.css'
 
 function Card({ children }) {
     return (
-        <div className="card">{children}</div>
+        <div className="card">
+            <div className="container">{children}</div>
+        </div>
     );
 }
 

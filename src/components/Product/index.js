@@ -1,24 +1,33 @@
 import React from 'react';
 import './styles.css';
 
-function Product({ image, name, sellingPrice, price }) {
+function Product({ uniqueId, image, name, quantity, sellingPrice, price, onAddProduct, onRemoveProduct }) {
     return (
         <div className="product">
-            <div className="product-pic-container">
-                <img className="product-pic" src={image} alt={name} />
+            <div className="image-container">
+                <img className="image" src={image} alt={name} />
             </div>
-            <div className="product-info">
-                <p className="product-name">{name}</p>
-                <p className="product-selling-price">{sellingPrice}</p>
-                <p className="product-price">{price}</p>
+            <div className="body">
+                <p className="name">{name}</p>
+                <div className="data-container">
+                    <div className="info">
+                        <p className="selling-price">{sellingPrice}</p>
+                        <p className="price">{price}</p>
+                    </div>
+                    <div className="quantity-controls">
+                        <button onClick={() => onAddProduct(uniqueId)} className="btn-control">+</button>
+                        <span className="quantity">{quantity}</span>
+                        <button onClick={() => onRemoveProduct(uniqueId)} className="btn-control">-</button>
+                    </div>
+                </div>
             </div>
-        </div>
+        </div >
     );
 }
 
 function ProductTotal({ total }) {
     return (
-        <div className="product-total">
+        <div className="total">
             <p>Total</p>
             <p>{total}</p>
         </div>

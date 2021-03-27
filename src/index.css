@@ -1,11 +1,26 @@
-body, p {
+body {
   margin: 0;
-  font-family: 'Poppins', sans-serif;
+  padding: 0;
+  outline: 0;
+  box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #d1d8e5;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+p {
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+body, input, button {
+  font: 16px 'Poppins', sans-serif;
 }

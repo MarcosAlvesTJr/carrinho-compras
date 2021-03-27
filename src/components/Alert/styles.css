@@ -4,9 +4,13 @@
     justify-content: center;
     padding-top: 2%;
     padding-bottom: 2%;
-    width: 75%;
+    padding-right: 4%;
+    padding-left: 4%;
+    width: 80%;
     background-color: #C7FFA6;
     color: #217A00;
     border: 1px solid #C7FFA6;
     border-radius: 35px;
+    font-size: 1.8vh;
+    transition: visibility 2s;
 }
