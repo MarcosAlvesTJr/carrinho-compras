@@ -26,3 +26,14 @@
 .btn:hover {
   background-color: #3265D1;
 }
+
+#discount-container {
+  display: flex;
+  justify-content: space-between;
+  color: red;
+}
+
+#total-price-container {
+  display: flex;
+  justify-content: space-between;
+}

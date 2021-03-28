@@ -11,8 +11,8 @@ function Product({ uniqueId, image, name, quantity, sellingPrice, price, onAddPr
                 <p className="name">{name}</p>
                 <div className="data-container">
                     <div className="info">
-                        <p className="selling-price">{sellingPrice}</p>
                         <p className="price">{price}</p>
+                        <p className="selling-price">{sellingPrice}</p>
                     </div>
                     <div className="quantity-controls">
                         <button onClick={() => onAddProduct(uniqueId)} className="btn-control">+</button>

@@ -45,14 +45,14 @@
 }
   
 .selling-price {
-    font-size: 1.5vh;
-    margin-bottom: 5px;
-    color: #a5a5a5;
+    font-weight: 500;
+    font-size: 1.9vh;
 }
   
 .price {
-    font-weight: 500;
-    font-size: 1.9vh;
+    font-size: 1.5vh;
+    margin-bottom: 5px;
+    color: #a5a5a5;
 }
 
 .total {

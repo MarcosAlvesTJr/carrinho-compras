@@ -51,7 +51,13 @@ function App() {
     }
   }
 
-  const totalPrice = useMemo(() => {
+  const finalPrice = useMemo(() => {
+    return products.reduce((prevProduct, currProduct) => {
+      return (currProduct.sellingPrice * currProduct.quantity) + prevProduct
+    }, 0)
+  }, [products])
+
+  const pricesWithoutDiscount = useMemo(() => {
     return products.reduce((prevProduct, currProduct) => {
       return (currProduct.price * currProduct.quantity) + prevProduct
     }, 0)
@@ -80,8 +86,16 @@ function App() {
       </CardBody>
 
       <CardText>
-        <ProductTotal total={convertToReais(totalPrice)} />
-        <Alert text="Parabéns, sua compra tem frete grátis!" show={(totalPrice / 100) > 10} />
+        <div id="total-price-container">
+          <p>Subtotal</p>
+          <p>{convertToReais(pricesWithoutDiscount)}</p>
+        </div>
+        <div id="discount-container">
+          <p id="label-discount">Descontos</p>
+          <p>{`-${convertToReais(pricesWithoutDiscount - finalPrice)}`}</p>
+        </div>
+        <ProductTotal total={convertToReais(finalPrice)} />
+        <Alert text="Parabéns, sua compra tem frete grátis!" show={(finalPrice / 100) > 10} />
       </CardText>
 
       <CardAction>
