@@ -85,3 +85,16 @@
     border-radius: 2px;
     cursor: pointer;
 }
+
+#discount-container {
+    display: flex;
+    justify-content: space-between;
+    color: red;
+}
+  
+#total-price-container {
+    display: flex;
+    justify-content: space-between;
+    color: #7d7d7d;
+}
+  

@@ -1,32 +1,41 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import './App.css';
 import { Card, CardTitle, CardBody, CardText, CardAction } from './components/Card'
-import { Product, ProductTotal } from './components/Product'
+import { Product, ProductTotal, Subtotal, Discount } from './components/Product'
+import Loading from './components/Loading'
 import Alert from './components/Alert'
 import { convertToReais } from './utils/convertToReais'
 
 function App() {
   const [products, setProducts] = useState([])
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     async function getData() {
-      const response = await fetch(process.env.REACT_APP_API_ABOVE_10)
-      const data = await response.json()
-      const formattedProducts = data.items.map(({ uniqueId, name, quantity, price, sellingPrice, imageUrl }) => ({
-        uniqueId,
-        name,
-        quantity,
-        price,
-        sellingPrice,
-        imageUrl
-      }))
-      setProducts(formattedProducts)
+      try {
+        setLoading(true)
+        const response = await fetch(process.env.REACT_APP_API_ABOVE_10)
+        const data = await response.json()
+        const formattedProducts = data.items.map(({ uniqueId, name, quantity, price, sellingPrice, imageUrl }) => ({
+          uniqueId,
+          name,
+          quantity,
+          price,
+          sellingPrice,
+          imageUrl
+        }))
+        setProducts(formattedProducts)
+      } catch (error) {
+        alert('Não foi possível carregar os produtos :(')
+      } finally {
+        setLoading(false)
+      }
     }
 
     getData()
   }, [setProducts])
 
-  const addProduct = (id) => {
+  const addProduct = useCallback((id) => {
     const found = products.find(product => product.uniqueId === id)
     const index = products.findIndex(product => product.uniqueId === id)
     found.quantity = found.quantity + 1
@@ -35,9 +44,9 @@ function App() {
     update.splice(index, 1, found)
 
     setProducts(update)
-  }
+  }, [products])
 
-  const removeProduct = (id) => {
+  const removeProduct = useCallback((id) => {
     const found = products.find(product => product.uniqueId === id)
 
     if (found.quantity > 0) {
@@ -49,7 +58,7 @@ function App() {
 
       setProducts(update)
     }
-  }
+  }, [products])
 
   const finalPrice = useMemo(() => {
     return products.reduce((prevProduct, currProduct) => {
@@ -64,44 +73,42 @@ function App() {
   }, [products])
 
   return (
-    <Card>
-      <CardTitle>Meu carrinho</CardTitle>
+    <>
+      <Loading show={loading}>
+        <Card>
+          <CardTitle>Meu carrinho</CardTitle>
 
-      <CardBody>
-        {
-          products.map(product => (
-            <Product
-              key={product.uniqueId}
-              uniqueId={product.uniqueId}
-              name={product.name}
-              quantity={product.quantity}
-              sellingPrice={convertToReais(product.sellingPrice)}
-              price={convertToReais(product.price)}
-              image={product.imageUrl}
-              onAddProduct={addProduct}
-              onRemoveProduct={removeProduct}
-            />
-          ))
-        }
-      </CardBody>
+          <CardBody>
+            {
+              products.map(product => (
+                <Product
+                  key={product.uniqueId}
+                  uniqueId={product.uniqueId}
+                  name={product.name}
+                  quantity={product.quantity}
+                  sellingPrice={convertToReais(product.sellingPrice)}
+                  price={convertToReais(product.price)}
+                  image={product.imageUrl}
+                  onAddProduct={addProduct}
+                  onRemoveProduct={removeProduct}
+                />
+              ))
+            }
+          </CardBody>
 
-      <CardText>
-        <div id="total-price-container">
-          <p>Subtotal</p>
-          <p>{convertToReais(pricesWithoutDiscount)}</p>
-        </div>
-        <div id="discount-container">
-          <p id="label-discount">Descontos</p>
-          <p>{`-${convertToReais(pricesWithoutDiscount - finalPrice)}`}</p>
-        </div>
-        <ProductTotal total={convertToReais(finalPrice)} />
-        <Alert text="Parabéns, sua compra tem frete grátis!" show={(finalPrice / 100) > 10} />
-      </CardText>
+          <CardText>
+            <Subtotal subtotal={convertToReais(pricesWithoutDiscount)} />
+            <Discount discount={convertToReais(pricesWithoutDiscount - finalPrice)} />
+            <ProductTotal total={convertToReais(finalPrice)} />
+            <Alert text="Parabéns, sua compra tem frete grátis!" show={(finalPrice / 100) > 10} />
+          </CardText>
 
-      <CardAction>
-        <button className="btn">Finalizar compra</button>
-      </CardAction>
-    </Card>
+          <CardAction>
+            <button className="btn">Finalizar compra</button>
+          </CardAction>
+        </Card>
+      </Loading>
+    </>
   );
 }
 

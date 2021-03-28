@@ -34,4 +34,22 @@ function ProductTotal({ total }) {
     );
 }
 
-export { Product, ProductTotal };
+function Subtotal({ subtotal }) {
+    return (
+        <div id="total-price-container">
+            <p>Subtotal</p>
+            <p>{subtotal}</p>
+        </div>
+    )
+}
+
+function Discount({ discount }) {
+    return (
+        <div id="discount-container">
+            <p id="label-discount">Descontos</p>
+            <p>{`-${discount}`}</p>
+        </div>
+    )
+}
+
+export { Product, ProductTotal, Subtotal, Discount };
